@@ -1,0 +1,99 @@
+import React from 'react';
+
+import { VDomRenderer, VDomModel } from '@jupyterlab/apputils';
+import { interactiveItem, TextItem, GroupItem, IconItem } from '@jupyterlab/statusbar';
+
+/**
+ * A pure functional component for rendering kernel status.
+ */
+function NumberCellsSelectedComponent(
+    props: NumberCellsSelectedComponent.IProps
+  ): React.ReactElement<NumberCellsSelectedComponent.IProps> {
+    return (
+        <GroupItem spacing={4} onClick={props.handleClick}>
+            <IconItem source={'s-toolbar-stash-icon'}/>
+            <TextItem
+                source={`Stash ${props.cellsSelected} cells}`}
+            />
+        </GroupItem>
+    );
+  }
+
+namespace NumberCellsSelectedComponent {
+
+    export interface IProps {
+    /**
+     * A click handler for the component. By default, the
+     * click stashes selected cells.
+     */
+    handleClick: () => void;
+
+    /**
+     * The number of selected cells to stash
+     */
+    cellsSelected: number;
+    }
+}
+
+/**
+ * A VDomRenderer widget for displaying the number of cells 
+ * to potentially stash.
+ */
+export class NumberCellsSelected extends VDomRenderer<NumberCellsSelected.Model> {
+    
+    constructor(opts: NumberCellsSelected.IOptions) {
+        super();
+        this._handleClick = opts.onClick;
+        this.model = new NumberCellsSelected.Model();
+        this.addClass(interactiveItem);
+    }
+
+    render() {
+        if (this.model === null) {
+            return null;
+        } else {
+            return (
+                <NumberCellsSelectedComponent
+                    cellsSelected={this.model.numSelected}
+                    handleClick={this._handleClick}
+                />
+            );
+        }
+    }
+
+    private _handleClick: () => void;
+}
+
+/**
+ * A namespace for NumberCellsSelected statics.
+ */
+export namespace NumberCellsSelected {
+    /**
+    * A VDomModel for the NumberCellsSelected status item.
+    */
+    export class Model extends VDomModel {
+        /**
+         * The number of selected cells.
+         */
+        get numSelected(): number {
+            return this._selected;
+        }
+
+        set numSelected(numSelected: number) {
+            this._selected = numSelected;
+        }
+
+        private _selected: number = 0;
+    }
+
+    /**
+     * Options for creating a NumberCellsSelected item.
+     */
+    export interface IOptions {
+        /**
+         * A click handler for the item. By defult this is used
+         * to activate the running sessions side panel.
+         */
+        onClick: () => void;
+  }
+}

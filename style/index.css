@@ -1,0 +1,75 @@
+.s-Stash-icon {
+  background-image: url(archive-solid.svg);
+}
+
+.s-Stash-toolbar-icon,
+.s-Stash-toolbar-icon-selected {
+  float: left;
+  padding: 0px;
+  margin: 4px;
+  background-repeat: no-repeat;
+  background-color: none;
+  background-position: center;
+  height: 24px;
+  width: 24px;
+  margin: 4px;
+  border-radius: 2px;
+}
+
+.s-toolbar-icon-stash {
+  background-image: url(archive-solid.svg);
+  background-size: 75%;
+}
+
+.s-toolbar-icon-trash {
+  background-image: url(trash-alt-solid.svg);
+  background-size: 66%;
+  user-select: none;
+  float: right;
+}
+
+.s-Stash-toolbar-button.s-trash-button {
+  position: absolute;
+  right: 0px;
+}
+
+.s-Stash-toolbar-icon:hover {
+  background-color: var(--jp-border-color2);
+  cursor: pointer;
+}
+
+.s-StashSideBar {
+  display: flex;
+  flex-direction: column;
+  background: var(--jp-layout-color1);
+  color: var(--jp-ui-font-color2);
+  font-size: var(--jp-ui-font-size1);
+  height: 100%;
+}
+
+.s-SideBar-stash-container {
+  overflow: hidden;
+  height: 100%;
+}
+
+.s-StashSidePanel-toolbar {
+  position: relative;
+  width: 100%;
+  margin: 0px;
+  user-select: none;
+  border-bottom: var(--jp-border-width) solid var(--jp-border-color2);
+  height: 36px;
+  display: flex;
+  align-items: center;
+}
+
+.s-StashSideBar-title-content {
+  border-bottom: var(--jp-border-width) solid var(--jp-border-color2);
+  flex: 0 0 auto;
+  font-size: var(--jp-ui-font-size0);
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin: 0px;
+  padding: 12px 0 4px 12px;
+  text-transform: uppercase;
+}
