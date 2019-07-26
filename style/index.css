@@ -73,3 +73,13 @@
   padding: 12px 0 4px 12px;
   text-transform: uppercase;
 }
+
+.s-statusbar-icon {
+  background-image: url(archive-solid.svg);
+  background-size: 50%;
+}
+
+.s-nbtoolbar-icon {
+  background-image: url(archive-solid.svg);
+  background-size: 50%;
+}

@@ -19,7 +19,7 @@ const TITLE_CLASS = "s-StashSideBar-title-content";
  * A widget that displays a stash
  */
 export class StashPanel extends Widget {
-    readonly stashBox: HTMLElement;
+    readonly stashBox: Widget;
     //private stashTabBox: HTMLElement;
     private stashButton: HTMLElement;
     private trashButton: HTMLElement;
@@ -30,22 +30,27 @@ export class StashPanel extends Widget {
         super();
         this.addClass("s-StashSideBar");
 
-        let header = this._buildToolbar();
+        let header = this.buildToolbar();
         this.node.appendChild(header);
 
-        let title = this._buildTitle();
+        let title = this.buildTitle();
         this.node.appendChild(title);
 
-        this.stashBox = document.createElement("div");
-        this.stashBox.classList.add(STASH_CONTAINER_CLASS);
-        this.node.appendChild(this.stashBox);
+        this.stashBox = new Widget({node: document.createElement("div")});
+        this.stashBox.addClass(STASH_CONTAINER_CLASS);
+        this.stashBox.node.addEventListener("p-drop", this.handleEvent);
+        this.node.append(this.stashBox.node);
+    }
+
+    handleEvent(event: Event): void {
+        console.log("dropped");
     }
 
     /**
      * Builds button toolbar in the side panel.
      * TODO: Add event listeners to toggle between tabs or delete cells/log
      */
-    private _buildToolbar() {
+    private buildToolbar() {
         let toolbarContainer = document.createElement("div");
         toolbarContainer.classList.add(BUTTON_CONTAINER_CLASS);
 
@@ -79,7 +84,7 @@ export class StashPanel extends Widget {
      * Builds title in sidebar.
      * TODO: dynamically change title depending on tab in sidebar
      */
-    private _buildTitle() {
+    private buildTitle() {
         let titleContainer = document.createElement("div");
         titleContainer.classList.add(TITLE_CONTAINER_CLASS);
 

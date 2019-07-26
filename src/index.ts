@@ -1,14 +1,20 @@
 import {
   ILabShell,
   JupyterFrontEnd,
-  ILayoutRestorer,
   JupyterFrontEndPlugin
 } from '@jupyterlab/application';
 
-
-import { INotebookTracker } from '@jupyterlab/notebook';
+import { IStatusBar } from '@jupyterlab/statusbar';
+import { 
+  INotebookTracker, 
+  Notebook, 
+  NotebookPanel } from '@jupyterlab/notebook';
 import { StashPanel } from './overlay/sidebar';
+import { StashCells } from './overlay/statusbar'
+import { createStashToolbarButton } from './overlay/toolbar'
 import '../style/index.css';
+//import { DocumentRegistry } from '@jupyterlab/docregistry';
+
 
 /*
 import {
@@ -16,29 +22,85 @@ import {
 } from '@phosphor/widgets'; */
 
 /**
- * Initialization data for the stash extension.
+ * Initialization data for the stash sidepanel.
  */
-const extension: JupyterFrontEndPlugin<void> = {
-  id: 'stash',
+const stashSidePanel: JupyterFrontEndPlugin<void> = {
+  id: 'stashPanel',
   autoStart: true,
   requires: [
     ILabShell,
-    ILayoutRestorer,
     INotebookTracker
   ],
-  activate: activateStash
+  activate: activateStashPanel
 };
 
-function activateStash(
+function activateStashPanel(
   app: JupyterFrontEnd,
   labShell: ILabShell,
 ) {
   const stash = new StashPanel();
   stash.title.iconClass = 's-Stash-icon jp-SideBar-tabIcon';
   stash.title.caption = 'Stash';
-  stash.id = 'stash';
+  stash.id = 'stashPanel';
 
   labShell.add(stash, 'left', { rank: 700 });
 }
 
-export default extension;
+/**
+ * A plugin providing a button located in the statusbar 
+ * to stash selected cells. 
+ */
+const stashStatusBarButton: JupyterFrontEndPlugin<void> = {
+  id: 'stashStatusBarButton',
+  autoStart: true,
+  requires: [
+    IStatusBar
+  ],
+  activate: (
+    app: JupyterFrontEnd, 
+    statusBar: IStatusBar, 
+    notebook: Notebook
+  ) => {
+    let item = new StashCells({
+      selection: 0,
+      onClick: () => console.log('success')
+    });
+    
+    statusBar.registerStatusItem(
+       'stashStatusBarButton',
+       {
+         item,
+         align: 'middle',
+         rank: 900,
+         isActive: () => {
+           return true;
+         }
+       }
+    );
+  }
+};
+
+/**
+ * A plugin providing a button located in the notebook
+ * toolbar to stash selected cells.
+ */
+const stashToolBarButton: JupyterFrontEndPlugin<void> = {
+  id: 'stashToolBarButton',
+  autoStart: true,
+  requires: [INotebookTracker],
+  activate: (
+    app: JupyterFrontEnd,
+    panel: NotebookPanel,
+    //context: DocumentRegistry.IContext<INotebookModel>
+  ) => {
+    createStashToolbarButton(panel);
+  }
+};
+
+const parts: JupyterFrontEndPlugin<any>[] = [
+  stashSidePanel,
+  stashStatusBarButton,
+  stashToolBarButton
+]
+
+export default parts;
