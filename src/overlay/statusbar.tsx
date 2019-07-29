@@ -94,8 +94,6 @@ export namespace StashCells {
    * Options for creating a stashCells object
    */
   export interface IOptions {
-
-    selection: any;
     /**
      * A click handler which by default stashes
      * the selected cells.

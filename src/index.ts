@@ -1,17 +1,18 @@
 import {
   ILabShell,
-  JupyterFrontEnd,
-  JupyterFrontEndPlugin
+  JupyterFrontEndPlugin,
+  JupyterFrontEnd
 } from '@jupyterlab/application';
 
 import { IStatusBar } from '@jupyterlab/statusbar';
 import { 
   INotebookTracker, 
-  Notebook, 
-  NotebookPanel } from '@jupyterlab/notebook';
+  //Notebook, 
+  /*NotebookPanel*/ } from '@jupyterlab/notebook';
 import { StashPanel } from './overlay/sidebar';
 import { StashCells } from './overlay/statusbar'
-import { createStashToolbarButton } from './overlay/toolbar'
+//import { createStashToolbarButton } from './overlay/toolbar'
+import { CheckStash } from './persistence/save';
 import '../style/index.css';
 //import { DocumentRegistry } from '@jupyterlab/docregistry';
 
@@ -24,19 +25,22 @@ import {
 /**
  * Initialization data for the stash sidepanel.
  */
-const stashSidePanel: JupyterFrontEndPlugin<void> = {
+const extension: JupyterFrontEndPlugin<void> = {
+  activate: activateStash,
   id: 'stashPanel',
   autoStart: true,
   requires: [
     ILabShell,
-    INotebookTracker
-  ],
-  activate: activateStashPanel
+    INotebookTracker,
+    IStatusBar
+  ]
 };
 
-function activateStashPanel(
+function activateStash(
   app: JupyterFrontEnd,
   labShell: ILabShell,
+  statusBar: IStatusBar,
+  nbTracker: INotebookTracker
 ) {
   const stash = new StashPanel();
   stash.title.iconClass = 's-Stash-icon jp-SideBar-tabIcon';
@@ -50,6 +54,7 @@ function activateStashPanel(
  * A plugin providing a button located in the statusbar 
  * to stash selected cells. 
  */
+/*
 const stashStatusBarButton: JupyterFrontEndPlugin<void> = {
   id: 'stashStatusBarButton',
   autoStart: true,
@@ -58,19 +63,18 @@ const stashStatusBarButton: JupyterFrontEndPlugin<void> = {
   ],
   activate: (
     app: JupyterFrontEnd, 
-    statusBar: IStatusBar, 
-    notebook: Notebook
+    statusBar: IStatusBar,
+    nbTracker: INotebookTracker
   ) => {
     let item = new StashCells({
-      selection: 0,
-      onClick: () => console.log('success')
+      onClick: () => CheckStash(nbTracker)
     });
     
     statusBar.registerStatusItem(
        'stashStatusBarButton',
        {
          item,
-         align: 'middle',
+         align: 'left',
          rank: 900,
          isActive: () => {
            return true;
@@ -84,6 +88,7 @@ const stashStatusBarButton: JupyterFrontEndPlugin<void> = {
  * A plugin providing a button located in the notebook
  * toolbar to stash selected cells.
  */
+/*
 const stashToolBarButton: JupyterFrontEndPlugin<void> = {
   id: 'stashToolBarButton',
   autoStart: true,
@@ -95,12 +100,6 @@ const stashToolBarButton: JupyterFrontEndPlugin<void> = {
   ) => {
     createStashToolbarButton(panel);
   }
-};
+}; */
 
-const parts: JupyterFrontEndPlugin<any>[] = [
-  stashSidePanel,
-  stashStatusBarButton,
-  stashToolBarButton
-]
-
-export default parts;
+export default extension;
