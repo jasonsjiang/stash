@@ -7,15 +7,15 @@ import {
 import { IStatusBar } from '@jupyterlab/statusbar';
 import { 
   INotebookTracker, 
-  //Notebook, 
-  /*NotebookPanel*/ } from '@jupyterlab/notebook';
+  //NotebookPanel
+ } from '@jupyterlab/notebook';
 import { StashPanel } from './overlay/sidebar';
 import { StashCells } from './overlay/statusbar'
 //import { createStashToolbarButton } from './overlay/toolbar'
-import { CheckStash } from './persistence/save';
+//import { SaveStash } from './persistence/save';
 import '../style/index.css';
+import { StashToolBarButton } from './overlay/toolbar';
 //import { DocumentRegistry } from '@jupyterlab/docregistry';
-
 
 /*
 import {
@@ -25,9 +25,9 @@ import {
 /**
  * Initialization data for the stash sidepanel.
  */
-const extension: JupyterFrontEndPlugin<void> = {
+const panel: JupyterFrontEndPlugin<void> = {
   activate: activateStash,
-  id: 'stashPanel',
+  id: 'stash:stashPanel',
   autoStart: true,
   requires: [
     ILabShell,
@@ -54,21 +54,22 @@ function activateStash(
  * A plugin providing a button located in the statusbar 
  * to stash selected cells. 
  */
-/*
+
 const stashStatusBarButton: JupyterFrontEndPlugin<void> = {
-  id: 'stashStatusBarButton',
+  id: 'stash:statusBarButton',
   autoStart: true,
   requires: [
-    IStatusBar
+    IStatusBar,
+    INotebookTracker
   ],
   activate: (
     app: JupyterFrontEnd, 
     statusBar: IStatusBar,
     nbTracker: INotebookTracker
   ) => {
-    let item = new StashCells({
-      onClick: () => CheckStash(nbTracker)
-    });
+    // when button is clicked, stash current cells
+
+    let item = new StashCells(nbTracker);
     
     statusBar.registerStatusItem(
        'stashStatusBarButton',
@@ -84,22 +85,24 @@ const stashStatusBarButton: JupyterFrontEndPlugin<void> = {
   }
 };
 
+
 /**
  * A plugin providing a button located in the notebook
  * toolbar to stash selected cells.
  */
-/*
 const stashToolBarButton: JupyterFrontEndPlugin<void> = {
-  id: 'stashToolBarButton',
+  id: 'stash:ToolBarButton',
   autoStart: true,
-  requires: [INotebookTracker],
   activate: (
     app: JupyterFrontEnd,
-    panel: NotebookPanel,
-    //context: DocumentRegistry.IContext<INotebookModel>
   ) => {
-    createStashToolbarButton(panel);
+    app.docRegistry.addWidgetExtension('Notebook', new StashToolBarButton);
   }
-}; */
+}; 
 
+const extension: JupyterFrontEndPlugin<any>[] = [
+  panel,
+  stashStatusBarButton,
+  stashToolBarButton
+]
 export default extension;

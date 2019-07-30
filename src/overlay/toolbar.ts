@@ -1,29 +1,44 @@
 import { ToolbarButton } from '@jupyterlab/apputils';
-
-import { toArray } from '@phosphor/algorithm';
-
-import { NotebookPanel } from '@jupyterlab/notebook';
+import { DocumentRegistry } from '@jupyterlab/docregistry'
+import { NotebookPanel, INotebookModel, INotebookTracker } from '@jupyterlab/notebook';
+import { IDisposable, DisposableDelegate } from '@phosphor/disposable';
+import { CheckStash } from '../persistence/save';
 
 const STASH_TOOLBAR_CLASS = 's-nbtoolbar-icon'
 
-/*
-export class StashButton extends ToolbarButton {
-  constructor(
-    name: string,
-    props?: ToolbarButtonComponent.IProps
-  ) {
-    super(props);
-    this._name = name;
+
+export class StashToolBarButton implements DocumentRegistry.IWidgetExtension<NotebookPanel, INotebookModel> {
+  createNew(
+    panel: NotebookPanel, 
+    context: DocumentRegistry.IContext<INotebookModel>
+  ): IDisposable {
+    let callback = () => {
+      console.log('toolbar button')
+      let selected = CheckStash(panel.content);
+      console.log(selected.length);
+    }
+    let button = new ToolbarButton({
+      className: 'stashToolBarButton',
+      iconClassName: STASH_TOOLBAR_CLASS,
+      onClick: callback,
+      tooltip: 'Stash Cells'
+    });
+    
+    panel.toolbar.insertAfter('spacer', 'stash', button);
+    return new DisposableDelegate(() => {
+      button.dispose();
+    })
   }
 
-  private _name: string;
+  notebookTracker: INotebookTracker = null;
 }
-*/
+
 
 /**
  * A button in the toolbar to stash cells.
  * @param panel 
  */
+/*
 export function createStashToolbarButton(
         panel: NotebookPanel, 
     ): void {
@@ -43,3 +58,4 @@ export function createStashToolbarButton(
             }),
         )
 }
+*/

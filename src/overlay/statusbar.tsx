@@ -1,9 +1,22 @@
 import React from 'react';
-
+import { INotebookTracker } from '@jupyterlab/notebook';
 import { VDomRenderer, VDomModel } from '@jupyterlab/apputils';
-
 import { GroupItem, IconItem, interactiveItem, TextItem } from '@jupyterlab/statusbar';
 
+//import { Cell } from '@jupyterlab/cells';
+
+/**
+ * A namespace for numCellsComponent statics.
+ */
+namespace StashCellsComponent {
+  /**
+   * The props for rendering the StashCellsComponent.
+   */
+  export interface IProps {
+    handleClick: () => void;
+    numSelected: number;
+  }
+}
 
 /**
  * A pure functional component for rendering stash status 
@@ -21,29 +34,16 @@ function StashCellsComponent(
 }
 
 /**
- * A namespace for numCellsComponent statics.
- */
-namespace StashCellsComponent {
-  /**
-   * The props for rendering the StashCellsComponent.
-   */
-  export interface IProps {
-    handleClick: () => void;
-    numSelected: number;
-  }
-}
-
-/**
  * A VDomRenderer widget for displaying the stash status.
  */
 export class StashCells extends VDomRenderer<StashCells.Model> {
   /**
    * Construct the stash status widget.
    */
-  constructor(opts: StashCells.IOptions) {
+  constructor(tracker: INotebookTracker) {
     super();
-    this._handleClick = opts.onClick;
-
+    this.nbTracker = tracker;
+    
     this.model = new StashCells.Model();
     this.addClass(interactiveItem);
   }
@@ -64,7 +64,14 @@ export class StashCells extends VDomRenderer<StashCells.Model> {
     }
   }
 
-  private _handleClick: () => void;
+  _handleClick() {
+    let notebookPanel = this.nbTracker.currentWidget;
+    let notebook = notebookPanel.content;
+    let selected = notebook.widgets.filter(cell => notebook.isSelectedOrActive(cell));
+    console.log(selected);
+  };
+  
+  nbTracker: INotebookTracker = null;
 }
 
 /**

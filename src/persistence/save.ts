@@ -1,20 +1,12 @@
 // import { Cell, ICellModel } from '@jupyterlab/cells';
 //import { StashPanel } from '../overlay/sidebar';
 import { Cell } from '@jupyterlab/cells';
-import { INotebookTracker } from '@jupyterlab/notebook';
+import { Notebook } from '@jupyterlab/notebook';
 
 //const STASH_DIRECTORY = '~/.stash'
 
-export function CheckStash(tracker: INotebookTracker) {
-    const panel = tracker.currentWidget;
-    if (!panel) {
-        return;
-    }
-    const notebook = panel.content;
-    const cellsToStash = notebook.widgets.filter(
-        cell => notebook.isSelectedOrActive(cell)
-    );
-    SaveStash(cellsToStash)
+export function CheckStash(notebook: Notebook) {
+    return notebook.widgets.filter(cell => notebook.isSelectedOrActive(cell)); 
 }
 
 export function SaveStash(cells: Cell[]) {
