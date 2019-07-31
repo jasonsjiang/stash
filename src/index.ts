@@ -10,9 +10,7 @@ import {
   //NotebookPanel
  } from '@jupyterlab/notebook';
 import { StashPanel } from './overlay/sidebar';
-import { StashCells } from './overlay/statusbar'
-//import { createStashToolbarButton } from './overlay/toolbar'
-//import { SaveStash } from './persistence/save';
+import { StashCells } from './overlay/statusbar';
 import '../style/index.css';
 import { StashToolBarButton } from './overlay/toolbar';
 //import { DocumentRegistry } from '@jupyterlab/docregistry';
@@ -84,7 +82,6 @@ const stashStatusBarButton: JupyterFrontEndPlugin<void> = {
     );
   }
 };
-
 
 /**
  * A plugin providing a button located in the notebook

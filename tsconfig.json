@@ -20,5 +20,5 @@
     "target": "es2017",
     "types": []
   },
-  "include": ["src/*", "src/overlay/toolbar.ts", "src/overlay/statusbar.tsx", "src/widgets/render-cell.ts", "src/persistence/save.ts", "src/overlay/trash-statusbar.tsx", "src/overlay/sidebar.ts"]
+  "include": ["src/*", "src/overlay/*", "src/widgets/*", "src/persistence/*", "src/widgets/cells/*"]
 }

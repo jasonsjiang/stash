@@ -2,20 +2,31 @@ import { ToolbarButton } from '@jupyterlab/apputils';
 import { DocumentRegistry } from '@jupyterlab/docregistry'
 import { NotebookPanel, INotebookModel, INotebookTracker } from '@jupyterlab/notebook';
 import { IDisposable, DisposableDelegate } from '@phosphor/disposable';
-import { CheckStash } from '../persistence/save';
+import { SaveStash, STASH_FILE_NAME } from '../persistence/save';
+import { ContentsManager } from '@jupyterlab/services';
+import { JSONArray } from '@phosphor/coreutils';
 
 const STASH_TOOLBAR_CLASS = 's-nbtoolbar-icon'
 
 
-export class StashToolBarButton implements DocumentRegistry.IWidgetExtension<NotebookPanel, INotebookModel> {
+export class StashToolBarButton implements 
+DocumentRegistry.IWidgetExtension<NotebookPanel, INotebookModel> {
   createNew(
     panel: NotebookPanel, 
     context: DocumentRegistry.IContext<INotebookModel>
   ): IDisposable {
     let callback = () => {
-      console.log('toolbar button')
-      let selected = CheckStash(panel.content);
-      console.log(selected.length);
+      let contents = new ContentsManager();
+      contents
+          .get(STASH_FILE_NAME)
+          .then(s => {
+            var stashManager = new SaveStash(panel);
+            if (s.content) {
+              let file: JSONArray = JSON.parse(s.content).stash;
+              stashManager.fromFile = file;
+            }
+            stashManager.stashSelection();
+          })
     }
     let button = new ToolbarButton({
       className: 'stashToolBarButton',
@@ -29,7 +40,6 @@ export class StashToolBarButton implements DocumentRegistry.IWidgetExtension<Not
       button.dispose();
     })
   }
-
   notebookTracker: INotebookTracker = null;
 }
 
