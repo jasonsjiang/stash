@@ -18,7 +18,7 @@
     "strict": true,
     "strictNullChecks": false,
     "target": "es2017",
-    "types": []
+    "types": ["jquery"]
   },
   "include": ["src/*", "src/overlay/*", "src/widgets/*", "src/persistence/*", "src/widgets/cells/*"]
 }

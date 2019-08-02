@@ -1,16 +1,23 @@
 import { ToolbarButton } from '@jupyterlab/apputils';
 import { DocumentRegistry } from '@jupyterlab/docregistry'
-import { NotebookPanel, INotebookModel, INotebookTracker } from '@jupyterlab/notebook';
+import { NotebookPanel, INotebookModel } from '@jupyterlab/notebook';
 import { IDisposable, DisposableDelegate } from '@phosphor/disposable';
-import { SaveStash, STASH_FILE_NAME } from '../persistence/save';
+import { StashPanel } from './sidebar';
+import { StashManager, STASH_FILE_NAME } from '../persistence/manager';
 import { ContentsManager } from '@jupyterlab/services';
-import { JSONArray } from '@phosphor/coreutils';
+//import { JSONArray } from '@phosphor/coreutils';
+//import { StashLoadManager } from '../persistence/load';
 
 const STASH_TOOLBAR_CLASS = 's-nbtoolbar-icon'
 
 
 export class StashToolBarButton implements 
 DocumentRegistry.IWidgetExtension<NotebookPanel, INotebookModel> {
+
+  constructor(sPanel: StashPanel) {
+    this.stashPanel = sPanel;
+  }
+
   createNew(
     panel: NotebookPanel, 
     context: DocumentRegistry.IContext<INotebookModel>
@@ -20,13 +27,13 @@ DocumentRegistry.IWidgetExtension<NotebookPanel, INotebookModel> {
       contents
           .get(STASH_FILE_NAME)
           .then(s => {
-            var stashManager = new SaveStash(panel);
-            if (s.content) {
-              let file: JSONArray = JSON.parse(s.content).stash;
-              stashManager.fromFile = file;
-            }
-            stashManager.stashSelection();
-          })
+              var stashManager = new StashManager(panel, this.stashPanel);
+              if (s.content) {
+                  let file: string[] = JSON.parse(s.content).stash;
+                  stashManager.fromFile = file;
+                  }
+                  stashManager.stashSelection();
+              })
     }
     let button = new ToolbarButton({
       className: 'stashToolBarButton',
@@ -40,7 +47,8 @@ DocumentRegistry.IWidgetExtension<NotebookPanel, INotebookModel> {
       button.dispose();
     })
   }
-  notebookTracker: INotebookTracker = null;
+  
+  stashPanel: StashPanel;
 }
 
 

@@ -1,22 +1,24 @@
-import { NotebookPanel } from '@jupyterlab/notebook';
+import { NotebookPanel, NotebookActions } from '@jupyterlab/notebook';
 import { ContentsManager } from '@jupyterlab/services';
 import { Cell, ICellModel } from '@jupyterlab/cells';
 import { JSONObject, JSONArray } from '@phosphor/coreutils';
 import { Contents } from '@jupyterlab/services'
+import { StashPanel } from '../overlay/sidebar';
 
 export const STASH_FILE_NAME = '.stash'
 
-export class SaveStash {
-    constructor(nbPanel: NotebookPanel) {
+export class StashManager {
+    constructor(nbPanel: NotebookPanel, sidebar: StashPanel) {
         this.stashTime = new Date();
         this.nbPanel = nbPanel;
+        this.sidebar = sidebar;
     }
 
     get fromFile() {
         return this._fromFile;
     }
 
-    set fromFile(newStash: JSONArray) {
+    set fromFile(newStash: string[]) {
         this._fromFile = newStash;
     }
 
@@ -29,19 +31,24 @@ export class SaveStash {
         )
         .filter(c => c.model.type == 'code'); 
         
-        let stashContent: JSONArray = [];
+        let stashContent: string[] = [];
         for (let cell of cells) {
             let stashCell = new StashSaveModel(cell, this.stashTime, STASH_FILE_NAME);
             stashContent.push(stashCell.content);
         }
-
         this.toStash = stashContent;
 
         if (this._fromFile) {
             this.aggregate()
         }
-        console.log("selected + already stashed: " + this.toStash);
-        this.writeToStash(new StashArray(this.toStash));
+
+        console.log("selected + from file: ");
+        console.log(this._fromFile);
+
+        this.writeToStash(new StashArray(this._fromFile));
+        
+        NotebookActions.deleteCells(notebook);
+        this.sidebar.updateStash(this._fromFile);
     }
 
     private writeToStash(
@@ -58,11 +65,18 @@ export class SaveStash {
     }
 
     private aggregate() {
-        this._fromFile.concat(this.toStash)
+        this._fromFile = this._fromFile.concat(this.toStash)
+        let a = this._fromFile;
+        this._fromFile = a.filter(
+            function (item, pos) {
+                return a.indexOf(item) == pos
+            }
+        );
     }
-
-    private _fromFile: JSONArray;
-    private toStash: JSONArray;
+    
+    sidebar: StashPanel;
+    private _fromFile: string[] = [];
+    private toStash: string[] = [];
     readonly stashTime: Date;
     readonly nbPanel: NotebookPanel;
 }
@@ -74,29 +88,6 @@ export interface StashCellJSON extends JSONObject {
     last_modified: string;
     content: any;
 }
-
-class StashArray implements Contents.IModel {
-    constructor(contentArray: JSONArray) {
-        this.name = "StashArray";
-        this.path = STASH_FILE_NAME;
-        this.created = new Date().toISOString();
-        this.last_modified = this.created;
-
-        let contentJSON = new Object(null) as JSONObject;
-        contentJSON.stash = contentArray
-        this.content = JSON.stringify(contentJSON);
-    }
-    readonly type: Contents.ContentType = "file";
-    readonly writable: boolean = true;
-    readonly mimetype: string = "application/json";
-    readonly format: Contents.FileFormat = "text";
-
-    readonly name: string;
-    readonly path: string;
-    readonly created: string;
-    readonly last_modified: string;
-    public content: string;
-} 
 
 export class StashSaveModel implements Contents.IModel {
     constructor(
@@ -143,3 +134,26 @@ export class StashSaveModel implements Contents.IModel {
     readonly last_modified: string;
     readonly content: string;
 }
+
+export class StashArray implements Contents.IModel {
+    constructor(contentArray: JSONArray) {
+        this.name = "StashArray";
+        this.path = STASH_FILE_NAME;
+        this.created = new Date().toISOString();
+        this.last_modified = this.created;
+
+        let contentJSON = new Object(null) as JSONObject;
+        contentJSON.stash = contentArray
+        this.content = JSON.stringify(contentJSON);
+    }
+    readonly type: Contents.ContentType = "file";
+    readonly writable: boolean = true;
+    readonly mimetype: string = "application/json";
+    readonly format: Contents.FileFormat = "text";
+
+    readonly name: string;
+    readonly path: string;
+    readonly created: string;
+    readonly last_modified: string;
+    public content: string;
+} 

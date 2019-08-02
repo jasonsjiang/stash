@@ -6,19 +6,14 @@ import {
 
 import { IStatusBar } from '@jupyterlab/statusbar';
 import { 
-  INotebookTracker, 
+  INotebookTracker
   //NotebookPanel
  } from '@jupyterlab/notebook';
 import { StashPanel } from './overlay/sidebar';
-import { StashCells } from './overlay/statusbar';
+//import { StashCells } from './overlay/statusbar';
 import '../style/index.css';
 import { StashToolBarButton } from './overlay/toolbar';
-//import { DocumentRegistry } from '@jupyterlab/docregistry';
-
-/*
-import {
-  Widget
-} from '@phosphor/widgets'; */
+import $ from 'jquery';
 
 /**
  * Initialization data for the stash sidepanel.
@@ -37,22 +32,28 @@ const panel: JupyterFrontEndPlugin<void> = {
 function activateStash(
   app: JupyterFrontEnd,
   labShell: ILabShell,
-  statusBar: IStatusBar,
-  nbTracker: INotebookTracker
+  nbTracker: INotebookTracker,
 ) {
   const stash = new StashPanel();
   stash.title.iconClass = 's-Stash-icon jp-SideBar-tabIcon';
   stash.title.caption = 'Stash';
-  stash.id = 'stashPanel';
-
+  stash.id = 'stash-panel';
   labShell.add(stash, 'left', { rank: 700 });
-}
+
+  setTimeout(function() {
+    $( ".s-Stash-icon" )[0].addEventListener('click', () => {
+      stash.refreshCodeMirror();
+    })
+  }, 75);
+
+  app.docRegistry.addWidgetExtension('Notebook', new StashToolBarButton(stash));
+};
 
 /**
  * A plugin providing a button located in the statusbar 
  * to stash selected cells. 
  */
-
+/*
 const stashStatusBarButton: JupyterFrontEndPlugin<void> = {
   id: 'stash:statusBarButton',
   autoStart: true,
@@ -81,25 +82,26 @@ const stashStatusBarButton: JupyterFrontEndPlugin<void> = {
        }
     );
   }
-};
+}; */
 
 /**
  * A plugin providing a button located in the notebook
  * toolbar to stash selected cells.
  */
+/*
 const stashToolBarButton: JupyterFrontEndPlugin<void> = {
   id: 'stash:ToolBarButton',
   autoStart: true,
   activate: (
     app: JupyterFrontEnd,
   ) => {
-    app.docRegistry.addWidgetExtension('Notebook', new StashToolBarButton);
+    
   }
-}; 
+};  */
 
 const extension: JupyterFrontEndPlugin<any>[] = [
   panel,
-  stashStatusBarButton,
-  stashToolBarButton
+  //stashStatusBarButton,
+  //stashToolBarButton
 ]
 export default extension;
