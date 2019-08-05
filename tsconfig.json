@@ -20,5 +20,5 @@
     "target": "es2017",
     "types": ["jquery"]
   },
-  "include": ["src/*", "src/overlay/*", "src/widgets/*", "src/persistence/*", "src/widgets/cells/*"]
+  "include": ["src/*", "src/overlay/*", "src/persistence/*", "src/widgets/cells/*"]
 }

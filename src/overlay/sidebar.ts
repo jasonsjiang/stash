@@ -36,6 +36,8 @@ export class StashPanel extends Widget {
     // TODO: ADD "SAVE" LISTENER TO STASH PANEL FOR DRAG N' DROP
     constructor() {
         super();
+        this.contents = new ContentsManager();
+
         this.addClass("s-StashSideBar");
 
         let header = this.buildToolbar();
@@ -44,6 +46,9 @@ export class StashPanel extends Widget {
         let title = this.buildTitle();
         this.node.appendChild(title);
 
+        this.stashBox = new Widget( {node: document.createElement("div") });
+        this.stashBox.addClass(STASH_CONTAINER_CLASS); 
+        this.stashBoxLayout = (this.stashBox.layout = new PanelLayout());
         this.buildStash();
     }
 
@@ -104,13 +109,9 @@ export class StashPanel extends Widget {
      * Creates stash.
      */
     private buildStash() {
-        let contents = new ContentsManager();
-        contents
+        this.contents
             .get(STASH_FILE_NAME)
             .then(s => {
-                this.stashBox = new Widget( {node: document.createElement("div") });
-                this.stashBox.addClass(STASH_CONTAINER_CLASS); 
-                this.stashBoxLayout = (this.stashBox.layout = new PanelLayout());
                 if (s.content.length > 0) {
                     let file: [] = JSON.parse(s.content).stash;
                     for (let i = 0; i < file.length; i += 1) {
@@ -124,6 +125,16 @@ export class StashPanel extends Widget {
                 this.buildCells(this.fileStash.reverse());
                 this.node.append(this.stashBox.node);
             })
+            .catch(() => {
+                console.log("no stash file found. creating one...")
+                this.contents.newUntitled({
+                    path: './',
+                    ext: '.stash',
+                    type: 'file'
+                  });
+                this.contents.rename('./untitled.stash', './.stash');
+                this.buildStash();
+            })
     }
 
     /**
@@ -135,7 +146,7 @@ export class StashPanel extends Widget {
             let code = JSON.parse(cell.content).source;
             let cm = CodeMirror(cmElement, {
                 value: code,
-                mode: 'text/x-python',
+                mode: 'python',
                 readOnly: 'nocursor',
                 theme: 'cm-s-jupyter',
             });
@@ -149,28 +160,26 @@ export class StashPanel extends Widget {
             let cellBox = new StashCellWidget(
                 document.createElement('div'),
                 cm,
-                cell);
-                /*
-            cellBox.node.addEventListener('onclick', () => {
-                this.cellBox;
-            }) */
+                cell
+            );
+
             cellBox.node.addEventListener('dblclick', () => {
                 let file: StashArray;
-                let cm = new ContentsManager();
-                cm.get(STASH_FILE_NAME)
+                this.contents
+                    .get(STASH_FILE_NAME)
                     .then(s => {
                         let f = ((JSON.parse(s.content)).stash as string[]);
                         f = f.filter(entry => entry !== JSON.stringify(cellBox.cell));
-                        console.log("after filter: " + f.length);
+                        console.log("left in stash: " + f.length);
                         file = new StashArray(f);
-                        console.log(file);
                     });
-                    setTimeout(function() {
-                        cm.save(STASH_FILE_NAME, file)
-                    }, 1000)
-                
+                let c = this.contents
+                setTimeout(function() {
+                    c.save(STASH_FILE_NAME, file)
+                }, 500)
                 this.destash(cellBox);
-            })
+            });
+
             cellBox.node.appendChild(cmWidget.node);
             this.stashBoxLayout.insertWidget(0, cellBox);
             this.refreshCodeMirror();
@@ -240,6 +249,7 @@ export class StashPanel extends Widget {
         }
     }
     
+    contents: ContentsManager;
     fileStash: StashCell[] = [];
     cmCells: Set<CodeMirror.Editor> = new Set();
     nbTracker: INotebookTracker;
@@ -253,12 +263,10 @@ export class StashPanel extends Widget {
     private titleBox: HTMLElement;
 
     /*
-
+    TODO: handlers to open different panes in sidebar
     private openStash() {}
 
     private openLog() {}
-
-    private emptyStash() {}
     */
 }
 

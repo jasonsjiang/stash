@@ -46,7 +46,7 @@ function activateStash(
       stash.refreshCodeMirror();
     })
     stash.nbTracker = nbTracker;
-  }, 75);
+  }, 100);
 
   app.docRegistry.addWidgetExtension('Notebook', new StashToolBarButton(stash));
 };

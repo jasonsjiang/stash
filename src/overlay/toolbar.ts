@@ -23,17 +23,26 @@ DocumentRegistry.IWidgetExtension<NotebookPanel, INotebookModel> {
     context: DocumentRegistry.IContext<INotebookModel>
   ): IDisposable {
     let callback = () => {
-      let contents = new ContentsManager();
+      var stashManager = new StashManager(panel, this.stashPanel);
+      let contents = new ContentsManager(); 
       contents
           .get(STASH_FILE_NAME)
           .then(s => {
-              var stashManager = new StashManager(panel, this.stashPanel);
-              if (s.content) {
-                  let file: string[] = JSON.parse(s.content).stash;
-                  stashManager.fromFile = file;
-                  }
-                  stashManager.stashSelection();
-              })
+            if (s.content) {
+              let file: string[] = JSON.parse(s.content).stash;
+              stashManager.fromFile = file;
+            }
+            stashManager.stashSelection();
+          })
+          .catch(() => {
+            contents.newUntitled({
+              path: './',
+              ext: '.stash',
+              type: 'file'
+            });
+            contents.rename('./untitled.stash', './.stash');
+            stashManager.stashSelection();
+          })
     }
     let button = new ToolbarButton({
       className: 'stashToolBarButton',
@@ -50,30 +59,3 @@ DocumentRegistry.IWidgetExtension<NotebookPanel, INotebookModel> {
   }
   stashPanel: StashPanel;
 }
-
-
-/**
- * A button in the toolbar to stash cells.
- * @param panel 
- */
-/*
-export function createStashToolbarButton(
-        panel: NotebookPanel, 
-    ): void {
-        function onClick() {
-            console.log('stashed from toolbar');
-        }
-
-        panel.toolbar.insertItem(
-            toArray(panel.toolbar.names()).length - 2,
-            'stashToolbarButton',
-            new ToolbarButton({
-                iconClassName: STASH_TOOLBAR_CLASS,
-                className: 'jp-ToolbarButton',
-                label: 'Stash',
-                onClick: () => { onClick(); },
-                tooltip: 'Stash selected cells'
-            }),
-        )
-}
-*/

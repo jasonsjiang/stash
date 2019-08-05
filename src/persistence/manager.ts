@@ -12,6 +12,7 @@ export class StashManager {
         this.stashTime = new Date();
         this.nbPanel = nbPanel;
         this.sidebar = sidebar;
+        this.cm = new ContentsManager();
     }
 
     get fromFile() {
@@ -43,8 +44,7 @@ export class StashManager {
             this.aggregate()
         }
 
-        console.log("selected + from file: ");
-        console.log(this._fromFile);
+        console.log("num in stash: " + this._fromFile.length);
 
         this.writeToStash(new StashArray(this._fromFile));
         
@@ -56,8 +56,7 @@ export class StashManager {
         toStash: StashArray
     ): Promise<void> {
         return new Promise((accept, reject) => {
-            let contents = new ContentsManager();
-            contents.save(STASH_FILE_NAME, toStash)
+            this.cm.save(STASH_FILE_NAME, toStash)
                 .then(() => {
                     console.log("Written to ", STASH_FILE_NAME);
                     accept();
@@ -76,6 +75,7 @@ export class StashManager {
     }
     
     sidebar: StashPanel;
+    cm: ContentsManager;
     private _fromFile: string[] = [];
     private toStash: string[] = [];
     readonly stashTime: Date;
@@ -137,14 +137,18 @@ export class StashSaveModel implements Contents.IModel {
 }
 
 export class StashArray implements Contents.IModel {
-    constructor(contentArray: JSONArray) {
+    constructor(contentArray?: JSONArray) {
         this.name = "StashArray";
         this.path = STASH_FILE_NAME;
         this.created = new Date().toISOString();
         this.last_modified = this.created;
 
         let contentJSON = new Object(null) as JSONObject;
-        contentJSON.stash = contentArray
+        if (contentArray) {
+            contentJSON.stash = contentArray;
+        } else {
+            contentJSON.stash = '[]';
+        }
         this.content = JSON.stringify(contentJSON);
     }
 
