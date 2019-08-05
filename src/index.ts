@@ -35,15 +35,17 @@ function activateStash(
   nbTracker: INotebookTracker,
 ) {
   const stash = new StashPanel();
+
   stash.title.iconClass = 's-Stash-icon jp-SideBar-tabIcon';
   stash.title.caption = 'Stash';
   stash.id = 'stash-panel';
   labShell.add(stash, 'left', { rank: 700 });
-
+  
   setTimeout(function() {
     $( ".s-Stash-icon" )[0].addEventListener('click', () => {
       stash.refreshCodeMirror();
     })
+    stash.nbTracker = nbTracker;
   }, 75);
 
   app.docRegistry.addWidgetExtension('Notebook', new StashToolBarButton(stash));

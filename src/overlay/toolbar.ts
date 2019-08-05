@@ -39,15 +39,15 @@ DocumentRegistry.IWidgetExtension<NotebookPanel, INotebookModel> {
       className: 'stashToolBarButton',
       iconClassName: STASH_TOOLBAR_CLASS,
       onClick: callback,
-      tooltip: 'Stash Cells'
+      tooltip: 'Stash current cell selection',
     });
-    
+    button.node.classList.add("jp-Icon", "jp-Icon-16");
+
     panel.toolbar.insertAfter('spacer', 'stash', button);
     return new DisposableDelegate(() => {
       button.dispose();
     })
   }
-  
   stashPanel: StashPanel;
 }
 

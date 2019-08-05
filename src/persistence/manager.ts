@@ -5,7 +5,7 @@ import { JSONObject, JSONArray } from '@phosphor/coreutils';
 import { Contents } from '@jupyterlab/services'
 import { StashPanel } from '../overlay/sidebar';
 
-export const STASH_FILE_NAME = '.stash'
+export const STASH_FILE_NAME = './.stash'
 
 export class StashManager {
     constructor(nbPanel: NotebookPanel, sidebar: StashPanel) {
@@ -30,9 +30,10 @@ export class StashManager {
             cell => notebook.isSelectedOrActive(cell)
         )
         .filter(c => c.model.type == 'code'); 
-        
+
         let stashContent: string[] = [];
         for (let cell of cells) {
+            console.log(cell.model);
             let stashCell = new StashSaveModel(cell, this.stashTime, STASH_FILE_NAME);
             stashContent.push(stashCell.content);
         }
@@ -106,7 +107,7 @@ export class StashSaveModel implements Contents.IModel {
         contentJSON.id = this.name;
         contentJSON.type = this.cell.type;
         contentJSON.created = this.created;
-        contentJSON.content = this.cell.value.text;
+        contentJSON.content = JSON.stringify(this.cell);
         contentJSON.metadata = this.metadata;
         this.content = JSON.stringify(contentJSON);
     }
@@ -146,6 +147,7 @@ export class StashArray implements Contents.IModel {
         contentJSON.stash = contentArray
         this.content = JSON.stringify(contentJSON);
     }
+
     readonly type: Contents.ContentType = "file";
     readonly writable: boolean = true;
     readonly mimetype: string = "application/json";

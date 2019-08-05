@@ -1,3 +1,8 @@
+/********************************************/
+/*********                          *********/
+/*********         SIDEBAR          *********/
+/*********                          *********/
+/********************************************/
 .s-Stash-icon {
   background-image: url(archive-solid.svg);
 }
@@ -69,16 +74,38 @@
   font-size: var(--jp-ui-font-size0);
   font-weight: 600;
   letter-spacing: 1px;
-  margin: 0px;
+  margin: 0px 0px 5px 0px;
   padding: 12px 0 4px 12px;
   text-transform: uppercase;
 }
+
+.s-Stash-cell-container {
+  cursor: default;
+  padding: 10px;
+  margin: 0px 4px 0px 4px;
+}
+
+.s-Stash-cell-container:hover {
+  background-color: var(--jp-notebook-multiselected-color);
+}
+
+/********************************************/
+/*********                          *********/
+/*********        STATUSBAR         *********/
+/*********                          *********/
+/********************************************/
 
 .s-statusbar-icon {
   background-image: url(archive-solid.svg);
   background-size: 50%;
 }
 
+/********************************************/
+/*********                          *********/
+/*********         TOOLBAR          *********/
+/*********                          *********/
+/********************************************/
 .s-nbtoolbar-icon {
   background-image: url(archive-solid.svg);
+  background-size: 87.5%;
 }
