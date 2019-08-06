@@ -1,0 +1,162 @@
+Income Group,Country,Year(s),Life,Ed_expected,HDI Rank,Ed_mean,GNI
+Low income,Afghanistan,2012,60,9.9,169,3.4,1900.0
+Lower middle income,Angola,2012,51,11.4,150,4.8,5550.0
+Upper middle income,Albania,2012,74,14.2,75,9.6,10450.0
+High income,Andorra,2012,83,13.5,32,9.6,
+High income,United Arab Emirates,2012,76,13.3,42,9.2,60600.0
+High income,Argentina,2012,76,17.3,45,9.8,19120.0
+Upper middle income,Armenia,2012,71,12.7,84,11.3,7950.0
+High income,Antigua and Barbuda,2012,75,13.9,62,9.3,18580.0
+High income,Australia,2012,83,20.3,2,13.1,41430.0
+High income,Austria,2012,81,15.7,24,11.2,46500.0
+Upper middle income,Azerbaijan,2012,72,11.9,78,11.2,15260.0
+Low income,Burundi,2012,56,10.5,184,2.8,790.0
+High income,Belgium,2012,80,16.3,22,11.3,43390.0
+Low income,Benin,2012,59,10.3,167,3.0,1870.0
+Low income,Burkina Faso,2012,58,7.5,185,1.4,1520.0
+Lower middle income,Bangladesh,2012,70,10.0,139,5.2,2990.0
+Upper middle income,Bulgaria,2012,74,14.4,56,10.7,15990.0
+High income,Bahrain,2012,77,14.5,47,9.1,36510.0
+Upper middle income,Bosnia and Herzegovina,2012,77,14.2,81,8.3,10260.0
+Upper middle income,Belarus,2012,72,15.7,52,12.0,17400.0
+Upper middle income,Belize,2012,75,12.9,103,10.5,7510.0
+Upper middle income,Brazil,2012,74,14.2,79,7.2,15070.0
+High income,Barbados,2012,78,15.3,54,10.5,16150.0
+High income,Brunei Darussalam,2012,77,14.9,30,8.9,81500.0
+Lower middle income,Bhutan,2012,68,12.6,132,2.4,6600.0
+Upper middle income,Botswana,2012,62,12.6,108,9.1,14550.0
+Low income,Central African Republic,2012,51,7.1,188,4.2,960.0
+High income,Canada,2012,82,15.9,10,12.9,41400.0
+High income,Switzerland,2012,83,15.8,2,13.4,58880.0
+High income,Chile,2012,80,15.6,38,9.9,20580.0
+Upper middle income,China,2012,75,12.7,90,7.4,11320.0
+Lower middle income,Cameroon,2012,56,10.4,153,5.7,3030.0
+Upper middle income,Colombia,2012,79,13.3,95,7.3,11570.0
+Low income,Comoros,2012,62,10.9,160,4.6,1440.0
+Lower middle income,Cabo Verde,2012,74,13.6,122,4.5,5840.0
+Upper middle income,Costa Rica,2012,79,13.7,66,8.4,13680.0
+Upper middle income,Cuba,2012,79,14.7,68,11.5,
+High income,Cyprus,2012,82,13.8,33,11.6,30930.0
+High income,Czech Republic,2012,78,16.1,28,12.3,27250.0
+High income,Germany,2012,81,16.9,4,13.1,44590.0
+Lower middle income,Djibouti,2012,61,6.3,172,4.0,
+Upper middle income,Dominica,2012,75,12.7,96,7.9,9970.0
+High income,Denmark,2012,80,18.7,5,13.0,45820.0
+Upper middle income,Dominican Republic,2012,77,13.2,99,7.5,11240.0
+Upper middle income,Algeria,2012,72,14.4,83,7.5,13160.0
+Upper middle income,Ecuador,2012,75,13.4,89,8.0,10360.0
+Low income,Eritrea,2012,63,5.0,179,3.9,
+High income,Spain,2012,82,17.5,27,9.6,31760.0
+High income,Estonia,2012,77,16.5,30,12.5,24970.0
+Low income,Ethiopia,2012,64,8.4,174,2.4,1250.0
+High income,Finland,2012,81,17.0,23,10.7,40830.0
+Upper middle income,Fiji,2012,69,15.0,91,10.1,7390.0
+High income,France,2012,82,16.2,21,11.1,38180.0
+Upper middle income,Gabon,2012,63,12.5,109,7.8,14820.0
+High income,United Kingdom,2012,81,15.8,16,13.1,37430.0
+Lower middle income,Georgia,2012,74,13.5,70,12.1,7950.0
+Lower middle income,Ghana,2012,62,11.5,139,6.8,3510.0
+Low income,Guinea,2012,58,8.5,183,2.4,1620.0
+Low income,Guinea-Bissau,2012,54,9.1,178,2.8,1450.0
+Upper middle income,Equatorial Guinea,2012,55,9.2,135,5.5,24060.0
+High income,Greece,2012,81,17.1,29,10.3,25450.0
+Upper middle income,Grenada,2012,73,15.8,79,8.5,10770.0
+Upper middle income,Guatemala,2012,72,10.7,125,4.7,6850.0
+Upper middle income,Guyana,2012,63,10.3,127,8.4,6590.0
+Lower middle income,Honduras,2012,74,11.6,130,5.5,3920.0
+High income,Croatia,2012,78,14.9,45,11.0,20530.0
+Low income,Haiti,2012,62,9.1,163,4.9,1630.0
+High income,Hungary,2012,75,15.4,43,11.6,22080.0
+Lower middle income,Indonesia,2012,71,12.9,113,7.6,9160.0
+Lower middle income,India,2012,66,11.5,131,5.6,4860.0
+High income,Ireland,2012,81,18.6,8,11.3,37930.0
+Upper middle income,Iraq,2012,70,10.3,121,6.6,14970.0
+High income,Iceland,2012,82,19.0,9,11.5,36690.0
+High income,Israel,2012,82,15.9,19,12.5,30930.0
+High income,Italy,2012,83,16.5,26,9.9,36190.0
+Upper middle income,Jamaica,2012,74,12.8,94,9.6,8050.0
+Upper middle income,Jordan,2012,74,13.1,86,9.9,9010.0
+High income,Japan,2012,84,15.3,17,12.0,38190.0
+Upper middle income,Kazakhstan,2012,68,15.0,56,11.5,19370.0
+Lower middle income,Kenya,2012,61,11.1,146,6.2,2640.0
+Lower middle income,Cambodia,2012,72,10.8,143,4.5,2710.0
+Lower middle income,Kiribati,2012,66,11.9,137,7.8,2600.0
+High income,Kuwait,2012,78,13.1,51,7.2,84810.0
+Upper middle income,Lebanon,2012,80,13.3,76,8.6,15260.0
+Low income,Liberia,2012,62,9.8,177,4.3,670.0
+Upper middle income,Libya,2012,75,13.4,102,7.3,24820.0
+Lower middle income,Sri Lanka,2012,75,13.8,73,10.9,9980.0
+Lower middle income,Lesotho,2012,50,11.1,160,5.9,3080.0
+High income,Lithuania,2012,74,16.4,37,12.4,23910.0
+High income,Luxembourg,2012,82,13.9,20,11.8,63710.0
+High income,Latvia,2012,74,15.4,44,11.6,21110.0
+Lower middle income,Morocco,2012,71,12.1,123,4.6,6780.0
+Low income,Madagascar,2012,64,10.3,158,6.1,1350.0
+Upper middle income,Maldives,2012,77,12.4,105,5.6,11640.0
+Upper middle income,Mexico,2012,76,12.9,77,8.5,16420.0
+Low income,Mali,2012,57,8.0,175,2.1,1760.0
+High income,Malta,2012,81,14.2,33,9.9,28240.0
+Lower middle income,Myanmar,2012,66,9.1,145,4.5,4060.0
+Upper middle income,Montenegro,2012,76,15.1,48,11.2,14100.0
+Lower middle income,Mongolia,2012,67,14.7,92,9.8,9200.0
+Low income,Mozambique,2012,53,9.1,181,3.3,1010.0
+Lower middle income,Mauritania,2012,63,8.2,157,4.0,3400.0
+Upper middle income,Mauritius,2012,74,14.7,64,8.6,17470.0
+Low income,Malawi,2012,59,10.7,170,4.3,1040.0
+Upper middle income,Malaysia,2012,74,12.9,59,10.1,22160.0
+Upper middle income,Namibia,2012,67,11.6,125,6.4,8770.0
+Low income,Niger,2012,59,5.3,187,1.6,860.0
+Lower middle income,Nigeria,2012,54,9.8,152,5.7,5180.0
+Lower middle income,Nicaragua,2012,73,11.5,124,6.3,4530.0
+High income,Netherlands,2012,81,18.1,7,11.9,47670.0
+High income,Norway,2012,82,17.5,1,12.6,65920.0
+Low income,Nepal,2012,68,12.3,144,3.7,2160.0
+High income,New Zealand,2012,82,19.3,13,12.3,31610.0
+High income,Oman,2012,76,13.7,52,8.0,41270.0
+Lower middle income,Pakistan,2012,65,7.7,147,5.0,4680.0
+High income,Panama,2012,77,12.9,60,9.5,17550.0
+Upper middle income,Peru,2012,77,13.4,87,9.0,10450.0
+Lower middle income,Philippines,2012,69,11.7,116,9.2,7350.0
+High income,Palau,2012,73,14.2,60,12.3,12940.0
+Lower middle income,Papua New Guinea,2012,62,10.0,154,4.2,3090.0
+High income,Poland,2012,77,15.4,36,11.8,23090.0
+High income,Portugal,2012,81,16.3,41,8.2,25810.0
+Upper middle income,Paraguay,2012,75,12.3,110,7.9,6940.0
+High income,Qatar,2012,79,13.4,33,9.1,119330.0
+Upper middle income,Romania,2012,74,14.7,50,10.8,18660.0
+Upper middle income,Russian Federation,2012,69,14.6,49,12.0,25000.0
+Low income,Rwanda,2012,65,10.8,159,3.8,1530.0
+High income,Saudi Arabia,2012,76,15.2,38,9.4,51240.0
+Lower middle income,Sudan,2012,63,7.0,165,3.3,3820.0
+Low income,Senegal,2012,64,8.7,162,2.6,2180.0
+High income,Singapore,2012,83,15.4,5,11.5,74530.0
+Lower middle income,Solomon Islands,2012,69,9.5,156,5.2,1890.0
+Low income,Sierra Leone,2012,46,9.3,179,3.2,1470.0
+Lower middle income,El Salvador,2012,72,13.2,117,6.5,7270.0
+Upper middle income,Serbia,2012,75,14.1,66,10.5,12660.0
+Low income,South Sudan,2012,55,4.9,181,4.8,1520.0
+Upper middle income,Suriname,2012,77,12.7,97,8.3,14820.0
+High income,Slovenia,2012,80,16.8,25,11.9,28640.0
+High income,Sweden,2012,82,15.8,14,12.1,45830.0
+Lower middle income,Swaziland,2012,54,11.4,148,6.8,7630.0
+High income,Seychelles,2012,74,13.5,63,8.8,21730.0
+Low income,Syrian Arab Republic,2012,68,13.0,149,6.3,
+Low income,Chad,2012,51,7.3,186,2.1,1950.0
+Low income,Togo,2012,58,12.0,166,4.4,1090.0
+Upper middle income,Thailand,2012,75,13.6,87,7.7,14040.0
+Low income,Tajikistan,2012,68,11.2,129,10.4,3020.0
+Upper middle income,Turkmenistan,2012,63,10.7,111,9.9,11280.0
+Lower middle income,Timor-Leste,2012,66,12.5,133,4.4,6630.0
+Upper middle income,Tonga,2012,71,14.3,101,11.1,5380.0
+High income,Trinidad and Tobago,2012,70,12.7,65,10.8,29050.0
+Lower middle income,Tunisia,2012,76,14.7,97,6.9,10150.0
+Upper middle income,Turkey,2012,75,14.4,71,7.6,20480.0
+Low income,Uganda,2012,57,10.0,163,5.3,1610.0
+Lower middle income,Ukraine,2012,71,15.2,84,11.3,8330.0
+High income,Uruguay,2012,77,15.5,54,8.5,18250.0
+Lower middle income,Uzbekistan,2012,69,12.0,105,11.5,5070.0
+Lower middle income,Vanuatu,2012,72,10.8,134,6.8,2770.0
+Upper middle income,Samoa,2012,73,12.9,104,10.2,5480.0
+Upper middle income,South Africa,2012,59,12.8,119,9.9,12100.0
+Lower middle income,Zambia,2012,57,12.5,139,6.7,3530.0
+Low income,Zimbabwe,2012,58,10.4,154,7.7,1610.0
