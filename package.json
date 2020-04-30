@@ -41,7 +41,7 @@
     "@types/codemirror": "0.0.76",
     "@types/jquery": "^3.3.30",
     "codemirror": "^5.48.2",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "react": "^16.8.6"
   },
   "devDependencies": {
