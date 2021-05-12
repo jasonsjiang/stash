@@ -40,7 +40,7 @@
     "@phosphor/widgets": "^1.8.1",
     "@types/codemirror": "0.0.76",
     "@types/jquery": "^3.3.30",
-    "codemirror": "^5.48.2",
+    "codemirror": "^5.58.2",
     "jquery": "^3.4.1",
     "react": "^16.8.6"
   },
